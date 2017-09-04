@@ -16,6 +16,7 @@ services:
       - "./data/plex/config:/config"
       - "./data/plex/data:/data"
       - "./data/plex/transcode:/transcode"
+      - "/etc/localtime:/etc/localtime:ro"
     environment:
       - VERSION=latest
       - PUID=1000
@@ -29,6 +30,22 @@ services:
     volumes:
       - "./data/sonarr/config:/config"
       - "./data/plex/data/tv:/tv"
+      - "./data/sabnzbd/downloads:/downloads"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - PUID=1000
+      - PGID=1000
+
+  sabnzbd:
+    build:
+      context: ./docker-sabnzbd
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    volumes:
+      - "./data/sabnzbd/config:/config"
+      - "./data/sabnzbd/downloads:/downloads"
+      - "./data/sabnzbd/incomplete-downloads:/incomplete-downloads"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
       - PUID=1000

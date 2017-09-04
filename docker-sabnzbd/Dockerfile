@@ -1,4 +1,4 @@
-FROM lsiobase/xenial
+FROM lsiobase/xenial.arm64
 MAINTAINER sparklyballs
 
 # set version label
@@ -13,6 +13,7 @@ PYTHONIOENCODING=utf-8
 
 # install packages
 RUN \
+ dpkg --add-architecture armhf && \
  echo "deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main" >> /etc/apt/sources.list.d/sabnzbd.list && \
  echo "deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main" >> /etc/apt/sources.list.d/sabnzbd.list && \
  echo "deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu xenial main" >> /etc/apt/sources.list.d/sabnzbd.list && \
