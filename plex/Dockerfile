@@ -7,17 +7,18 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 # install packages
 RUN \
+ echo 'Acquire::ForceIPv4 "true";' | tee /etc/apt/apt.conf.d/99force-ipv4 && \
  apt-get update && \
- apt-get install -y wget && \
+ apt-get install -y wget apt-transport-https && \
 
 # install plex
- wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add - && \
+ wget -4 -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add - && \
  echo "deb [arch=armhf] https://dev2day.de/pms/ jessie main" >> /etc/apt/sources.list.d/pms.list && \
- apt-get install -y apt-transport-https && \
  dpkg --add-architecture armhf && \
- wget http://archive.raspbian.org/raspbian/pool/main/g/gcc-4.9/libstdc++6_4.9.2-10_armhf.deb && \
- dpkg -i libstdc++6_4.9.2-10_armhf.deb && \
- rm libstdc++6_4.9.2-10_armhf.deb && \
+ apt-get update && apt-get install -y libstdc++6:armhf && \
+ #wget http://archive.raspbian.org/raspbian/pool/main/g/gcc-4.9/libstdc++6_4.9.2-10_armhf.deb && \
+ #dpkg -i libstdc++6_4.9.2-10_armhf.deb && \
+ #rm libstdc++6_4.9.2-10_armhf.deb && \
  apt-get clean
 
 ENV \
