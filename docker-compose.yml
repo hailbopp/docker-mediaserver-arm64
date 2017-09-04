@@ -1,0 +1,12 @@
+version: "2"
+services:
+  plex:
+    network_mode: "host"
+    build:
+      context: ./plex
+    volumes:
+      - "./data/plex/config:/config"
+      - "./data/plex/data:/data"
+      - "./data/plex/transcode:/transcode"
+    environment:
+      - VERSION=latest
