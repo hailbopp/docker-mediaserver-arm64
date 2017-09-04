@@ -1,9 +1,10 @@
 version: "2"
 services:
   plex:
-    # network_mode: "host"
+    network_mode: host
+    # command: /usr/sbin/start_pms
     build:
-      context: ./plex
+      context: ./docker-plex
     ports:
       - "32400:32400"
       - "32400:32400/udp"
